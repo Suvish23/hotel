@@ -24,6 +24,12 @@ export default function Booking(){
   const [check_out,setCheck_out] = useState(''); 
   const {userstore} = useContext(UserContext);
   const {roomstore} = useContext(RoomContext);
+  
+  console.log(userstore.user)
+  console.log(userstore.id)
+  console.log(userstore.email)
+  console.log(userstore.phonenumber)
+  console.log(userstore.address)
   const Submit = (e)=> {
     e.preventDefault();
    axios
@@ -32,8 +38,11 @@ export default function Booking(){
     check_in,
     check_out,
     room_id:roomstore.id,
+    user_name:userstore.user,
     
-
+    phonenumber:userstore.phonenumber,
+    email:userstore.email,
+    address:userstore.address
    })
    .then((response) => {
      console.log(response.id)

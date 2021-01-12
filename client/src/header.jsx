@@ -59,7 +59,9 @@ export default function Header() {
     window.alert("Logged out successfully")
       history.push('/')
   }
-  
+  const onclickbookingshandler = ()=> {
+history.push('/roomstatus')
+  }
 
   return (
     <Grid container className={classes.root}>
@@ -71,10 +73,16 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
            <span style={{color:"#EB984E"}}>SkyLine</span> Hotel
           </Typography>
-          <h3 className={classes.button} color="inherit">
+          {
+    (userstore.user==="admin") &&  <Button onClick={onclickbookingshandler} className={classes.button} >Room status
+    </Button>
+  }
+   <Button className={classes.button} color="white">
           {userstore.user}
-            </h3>
+            </Button>
+          
           <Button className={classes.button} color="inherit"  onClick= {onclickhomehandler}>Home</Button>
+         
           <Button className={classes.button} color="inherit"  onClick= {onclickabouthandler}>About</Button>
           <Button className={classes.button} color="inherit"  onClick= {onclickContacthandler}>Contact</Button>
           <Button className={classes.button} color="inherit" onClick= {onclickloginhandler} disabled={userstore.user}>Login</Button>

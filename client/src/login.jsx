@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
    })
    .then((response) => {
      console.log(response.id)
-    dispatch({type:'addUser', payload:{name:response.data.name,id:response.data.id}});
+    dispatch({type:'addUser', payload:{name:response.data.name,id:response.data.id,phonenumber:response.data.phonenumber,address:response.data.address,email:response.data.email}});
     history.push('/')
    })
    .catch((error) => {

@@ -106,7 +106,7 @@ app.post('/feedback',async(req, res) => {
          const Password=Email.rows[0].password;
           if(Email.rows[0].email === email  && Password ===password)
           {
-              res.json({status:"successfully Logged in",name:Email.rows[0].name,id:Email.rows[0].user_id})
+              res.json({status:"successfully Logged in",name:Email.rows[0].name,id:Email.rows[0].user_id,phonenumber:Email.rows[0].phonenumber,address:Email.rows[0].address,email:Email.rows[0].email})
             }
            else if(Password!== password)
            res.status(401).json({data:"Incorrect Password "})
@@ -117,7 +117,16 @@ app.post('/feedback',async(req, res) => {
 
  app.post('/bookings',async(req,res)=>{
    try{
-       const results=await db.query("INSERT INTO bookings (user_id,check_in,check_out,room_id) values ($1,$2,$3,$4) returning *",[req.body.user_id,req.body.check_in,req.body.check_out,req.body.room_id]);
+       const results = await db.query("INSERT INTO bookings (user_id,check_in,check_out,room_id,user_name,phonenumber,email,address) values ($1,$2,$3,$4,$5,$6,$7,$8) returning *",[req.body.user_id,req.body.check_in,req.body.check_out,req.body.room_id,req.body.user_name,req.body.phonenumber,req.body.email,req.body.address]);
+    res.status(200).json({ status: 'success',data:results.rows});
+   }
+   catch(error){
+       res.status(404).json({ status: 'failed'});
+   }
+ })
+ app.get('/getStatus',async(req,res)=>{
+   try{
+       const results=await db.query("Select  * from bookings")
     res.status(200).json({ status: 'success',data:results.rows});
    }
    catch(error){

@@ -5,6 +5,7 @@ import Login from "./login";
 import SignUp from './signUp';
 import Booking from './booking';
 import Contact from './contact';
+import RoomStatus from "./roomStatus";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Route path="/SignUp" exact component={SignUp} />
       <Route path="/Booking" exact component={Booking} />
       <Route path="/Contact" exact component={Contact} />
+      <Route path="/roomstatus" exact component={RoomStatus} />
       
       </Switch>
     </Router>
