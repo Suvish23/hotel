@@ -133,7 +133,33 @@ app.post('/feedback',async(req, res) => {
        res.status(404).json({ status: 'failed'});
    }
  })
-
+ app.get('/breakfast',async(req,res)=>{
+    try{
+        const results=await db.query(`Select * from food where meal_type='breakfast'`)
+     res.status(200).json({ status: 'success',data:results.rows});
+    }
+    catch(error){
+        res.status(404).json({ status: 'failed'});
+    }
+  })
+ app.get('/lunch',async(req,res)=>{
+    try{
+        const results=await db.query(`Select * from food where meal_type='lunch'`)
+     res.status(200).json({ status: 'success',data:results.rows});
+    }
+    catch(error){
+        res.status(404).json({ status: 'failed'});
+    }
+  })
+ app.get('/dinner',async(req,res)=>{
+    try{
+        const results=await db.query(`Select * from food where meal_type='dinner'`)
+     res.status(200).json({ status: 'success',data:results.rows});
+    }
+    catch(error){
+        res.status(404).json({ status: 'failed'});
+    }
+  })
 
 // app.post("/orders",async(req,res)=> {
 //   try {
