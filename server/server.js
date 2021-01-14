@@ -116,12 +116,28 @@ app.post('/feedback',async(req, res) => {
  }});
 
  app.post('/bookings',async(req,res)=>{
+    const {check_in,check_out,room_id}=req.body;
+    console.log(check_in)
+    console.log(check_out)
+    console.log(room_id);
+    
    try{
-       const results = await db.query("INSERT INTO bookings (user_id,check_in,check_out,room_id,user_name,phonenumber,email,address) values ($1,$2,$3,$4,$5,$6,$7,$8) returning *",[req.body.user_id,req.body.check_in,req.body.check_out,req.body.room_id,req.body.user_name,req.body.phonenumber,req.body.email,req.body.address]);
-    res.status(200).json({ status: 'success',data:results.rows});
+       console.log("came here")
+    // const bookingsCheck_in = await db.query("SELECT room_id from bookings where check_in=$1",[req.body.check_in]);
+    // console.log(bookingsCheck_in.rows[0].room_id);
+    const bookingsRoom_id = await db.query("SELECT room_id from bookings where room_id=$1",[req.body.room_id]);
+     console.log(bookingsRoom_id.rows[0].room_id);
+     const bookingsCheck_in = await db.query("SELECT check_in from bookings where check_in=$1",[req.body.check_in]);
+     console.log(bookingsCheck_in.rows[0].check_in);
+     
+      if(check_in == bookingsCheck_in.rows[0].check_in || room_id === bookingsRoom_id)
+      {
+        res.status(401).json({data:"Room is already Booked "})
+      }
    }
-   catch(error){
-       res.status(404).json({ status: 'failed'});
+   catch(err){
+    const results = await db.query("INSERT INTO bookings (user_id,check_in,check_out,room_id,user_name,phonenumber,email,address) values ($1,$2,$3,$4,$5,$6,$7,$8) returning *",[req.body.user_id,req.body.check_in,req.body.check_out,req.body.room_id,req.body.user_name,req.body.phonenumber,req.body.email,req.body.address]);
+    res.status(200).json({ status: 'success',data:results.rows});
    }
  })
  app.get('/getStatus',async(req,res)=>{

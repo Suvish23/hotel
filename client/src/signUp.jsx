@@ -72,7 +72,7 @@ const SignUp = () => {
     {name,email,password,phonenumber,address})
     .then((response) =>{
 console.log(response.data)
-dispatch({type:'addUser', payload:{name:response.data.data.name,id:response.data.data.user_id}});
+dispatch({type:'addUser', payload:{name:response.data.data.name,id:response.data.data.user_id,email:response.data.data.email,phonenumber:response.data.data.phonenumber,address:response.data.data.address}});
 history.push('/')
     })
     .catch((error)=>{

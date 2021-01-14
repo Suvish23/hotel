@@ -50,8 +50,8 @@ export default function Booking(){
     history.push('/')
    })
    .catch((error) => {
-     console.log(error)
-     window.alert("Incorrect Details");
+     console.log(error.data)
+     window.alert("Room is already Booked ");
    });
    };
 
