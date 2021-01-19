@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './header';
 import { makeStyles } from '@material-ui/styles';
 import HomePageCard from './homePageCard';
-import { Grid } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import Content from './content';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -13,6 +13,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import Footer from './footer';
+import {useHistory} from 'react-router-dom'
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -43,7 +45,7 @@ const useStyles = makeStyles(() => ({
     }
   },
   button2:{
-    marginLeft:"10.5vw",
+    marginLeft:"12.3vw",
     '&:hover':{
       backgroundColor:"#EB984E",
     }
@@ -51,9 +53,10 @@ const useStyles = makeStyles(() => ({
   }));
 function HomePage() {
     const classes= useStyles();
-    
-    
-    
+    const history = useHistory();
+    const onclickbuttonHandler = () => {
+      history.push('/foods')
+    }
     return (
   <Grid container>
           <Grid item container style={{marginBottom:"5px"}}> 
@@ -90,15 +93,14 @@ function HomePage() {
                 <CardContent>
                   <FastfoodIcon  className={classes.icon}></FastfoodIcon>
                   <Typography className={classes.title}  gutterBottom>
-         Free Meals
+          Meals
         </Typography>
-                  
                   <Typography className={classes.subtitle}>
                     Free Meals for Breakfast,Lunch and Dinner included in the Package                   
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="large" className={classes.button2}>Learn More</Button>
+                  <Button size="large" className={classes.button2} onClick={onclickbuttonHandler}>Details</Button>
                 </CardActions>
               </Card>
             </Grid>

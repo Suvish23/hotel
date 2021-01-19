@@ -117,9 +117,7 @@ app.post('/feedback',async(req, res) => {
 
  app.post('/bookings',async(req,res)=>{
     const {check_in,check_out,room_id}=req.body;
-    console.log(check_in)
-    console.log(check_out)
-    console.log(room_id);
+  
     
    try{
        console.log("came here")
@@ -129,26 +127,28 @@ app.post('/feedback',async(req, res) => {
      console.log(bookingsRoom_id.rows[0].room_id);
      const bookingsCheck_in = await db.query("SELECT check_in from bookings where check_in=$1",[req.body.check_in]);
      console.log(bookingsCheck_in.rows[0].check_in);
-     
       if(check_in == bookingsCheck_in.rows[0].check_in || room_id === bookingsRoom_id)
       {
         res.status(401).json({data:"Room is already Booked "})
       }
    }
    catch(err){
-    const results = await db.query("INSERT INTO bookings (user_id,check_in,check_out,room_id,user_name,phonenumber,email,address) values ($1,$2,$3,$4,$5,$6,$7,$8) returning *",[req.body.user_id,req.body.check_in,req.body.check_out,req.body.room_id,req.body.user_name,req.body.phonenumber,req.body.email,req.body.address]);
+    const results = await db.query("INSERT INTO bookings (user_id,check_in,check_out,room_id) values ($1,$2,$3,$4) returning *",[req.body.user_id,req.body.check_in,req.body.check_out,req.body.room_id]);
     res.status(200).json({ status: 'success',data:results.rows});
    }
  })
+
+ 
  app.get('/getStatus',async(req,res)=>{
    try{
-       const results=await db.query("Select  * from bookings")
+       const results=await db.query(`SELECT U.name,U.email,U.phonenumber,U.address,B.book_id,B.user_id,B.check_in,B.check_out,B.room_id FROM users U JOIN bookings B ON U.user_id=B.user_id`)
     res.status(200).json({ status: 'success',data:results.rows});
    }
    catch(error){
        res.status(404).json({ status: 'failed'});
    }
  })
+
  app.get('/breakfast',async(req,res)=>{
     try{
         const results=await db.query(`Select * from food where meal_type='breakfast'`)
@@ -177,27 +177,24 @@ app.post('/feedback',async(req, res) => {
     }
   })
 
-// app.post("/orders",async(req,res)=> {
-//   try {
-//       const results = await db.query("Select * from orders where userid=$1",[req.body.userid]);
-//       console.log(results.rows)
-//         res.status(200).json({status:"success",data:results.rows}
-//     )}
-//    catch (error) {
-//       res.status(500).json({status:"failed"})
-//   }});
+  app.post('/addmeals',async(req, res) => {
+    try {
+        
+        const results=await db.query("INSERT INTO food (meal_type,meals) values ($1,$2) returning *",[req.body.meal_type,req.body.meals]);
+        res.status(200).json({ status: 'success',data :results.rows[0]});
+    } 
+    catch (error) {
+      
+        res.status(404).json({ status: 'failed'});
+    }
+  });
 
 
 
 
 
 
-// const port= process.env.PORT; 
 
-// app.listen(port,()=>{
-//   console.log(`server runing in node on port ${port}`)
-// }
-// );
 
 
 const port= process.env.PORT; 

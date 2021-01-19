@@ -1,5 +1,5 @@
-import { Grid  } from '@material-ui/core';
-import React , { useEffect  } from 'react'
+import { Button, Grid  } from '@material-ui/core';
+import React , { useEffect,useContext  } from 'react'
 
 
 import { withStyles,makeStyles } from '@material-ui/core/styles';
@@ -12,6 +12,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import axios from 'axios';
+import Header from './header';
+import { UserContext } from './userContext';
+import { useHistory } from 'react-router-dom';
 const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -34,13 +37,27 @@ const StyledTableCell = withStyles((theme) => ({
     table: {
       minWidth: 100,
     },
+    button:{
+      color:"black",
+      '&:hover':{
+        backgroundColor:"orange",
+      }
+    },
   });
 
 function FoodTable() {
     const classes=useStyles();
+    const history = useHistory();
+    const {userstore} =useContext(UserContext);
     const [breakfast,setBreakfast] = React.useState([]);
     const [lunch,setLunch] = React.useState([]);
     const [dinner,setDinner] = React.useState([]);
+
+    const OnclickmealsHandler = () => {
+    history.push('/addmeals')
+    }
+
+
     useEffect(()=>{
         axios
         .get('http://localhost:5000/breakfast')
@@ -72,10 +89,12 @@ function FoodTable() {
         })
       },[]);
     return (
-        <Grid item container style={{marginTop:"20px"}}>
-            <Grid xs={4}>
-                
-           
+        <Grid  container>
+    <Grid xs={12}>
+                <Header/>
+            </Grid>
+            <Grid container style={{marginTop:"10vh"}} >
+            <Grid xs={4}> 
         <TableContainer component={Paper}>
           <Table className={classes.table}>
             <TableHead style={{background:"#f0e9e9"}}>
@@ -136,6 +155,14 @@ function FoodTable() {
             </Table>
         </TableContainer>
         </Grid>
+        </Grid>
+        <Grid container justify="center" style={{marginTop:"2vh"}}>
+        {
+    (userstore.user==="admin") &&  <Button className={classes.button} onClick={OnclickmealsHandler} >ADD MEALS
+    </Button>
+  }
+        </Grid>
+       
       </Grid>
      
     )

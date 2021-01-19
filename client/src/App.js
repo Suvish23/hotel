@@ -7,6 +7,7 @@ import Booking from './booking';
 import Contact from './contact';
 import RoomStatus from "./roomStatus";
 import FoodTable from "./foodTable";
+import AddMeals from "./addMeals";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Route path="/Contact" exact component={Contact} />
       <Route path="/roomstatus" exact component={RoomStatus} />
       <Route path="/foods" exact component={FoodTable} />
+      <Route path="/addmeals" exact component={AddMeals} />
       
       </Switch>
     </Router>

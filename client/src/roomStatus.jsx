@@ -61,14 +61,14 @@ function RoomStatus() {
                 <TableCell >Check_in</TableCell>
                 <TableCell >Check_out</TableCell>
                 <TableCell >phonenumber</TableCell>
-                <TableCell >address</TableCell>
                 <TableCell >email</TableCell>
+                <TableCell >address</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
             {status.map((row) => (
             <StyledTableRow>
-              <StyledTableCell >{row.user_name}</StyledTableCell>
+              <StyledTableCell >{row.name}</StyledTableCell>
               <StyledTableCell align="left">
                {row.room_id}</StyledTableCell>
               <StyledTableCell align="left">

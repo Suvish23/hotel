@@ -62,6 +62,9 @@ export default function Header() {
   const onclickbookingshandler = ()=> {
 history.push('/roomstatus')
   }
+  const onclickhandler=()=>{
+    history.push('/')
+  }
 
   return (
     <Grid container className={classes.root}>
@@ -70,8 +73,9 @@ history.push('/roomstatus')
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
          <AccountBalanceIcon></AccountBalanceIcon>
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-           <span style={{color:"#EB984E"}}>SkyLine</span> Hotel
+          <Typography variant="h6" className={classes.title} >
+           <span ><Button style={{color:"#EB984E",fontSize:"25px"}} onClick={onclickhandler}>SkyLine
+             </Button></span>Hotel
           </Typography>
           {
     (userstore.user==="admin") &&  <Button onClick={onclickbookingshandler} className={classes.button} >Room status

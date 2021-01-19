@@ -21,7 +21,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       Copyright ©
       <Link color="inherit" to="/">
-      <span style={{color:"#EB984E"}}>SkyLine </span> Hotel
+      <span style={{color:"#EB984E"}}>Indian </span> Railways
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
